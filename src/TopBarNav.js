@@ -109,6 +109,22 @@ export default class TopBarNav extends React.Component {
 
 		return (
 			<View onLayout={this.calibrate} style={{ flex: 1 }}>
+				<Animated.ScrollView
+					{...scrollViewProps}
+					ref={ref => (this.scrollView = ref)}
+					horizontal={true}
+					pagingEnabled={true}
+					showsHorizontalScrollIndicator={false}
+					scrollEventThrottle={1}
+					onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX } } }], {
+						useNativeDriver: true
+					})}>
+					{routeStack.map((route, i) => (
+						<View key={i} style={{ width }}>
+							{renderScene(route, i)}
+						</View>
+					))}
+				</Animated.ScrollView>
 				<View
 					style={[
 						defaultStyles.header,
@@ -150,7 +166,7 @@ export default class TopBarNav extends React.Component {
 							return (
 								<TouchableOpacity
 									key={i}
-									style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+									style={{ flex: 1 }}
 									onPress={() => this.scrollView.getNode().scrollTo({ x: i * width })}>
 									<Animated.View style={{ opacity }}>{label}</Animated.View>
 								</TouchableOpacity>
@@ -168,22 +184,6 @@ export default class TopBarNav extends React.Component {
 						</Animated.View>
 					</View>
 				</View>
-				<Animated.ScrollView
-					{...scrollViewProps}
-					ref={ref => (this.scrollView = ref)}
-					horizontal={true}
-					pagingEnabled={true}
-					showsHorizontalScrollIndicator={false}
-					scrollEventThrottle={1}
-					onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX } } }], {
-						useNativeDriver: true
-					})}>
-					{routeStack.map((route, i) => (
-						<View key={i} style={{ width }}>
-							{renderScene(route, i)}
-						</View>
-					))}
-				</Animated.ScrollView>
 			</View>
 		);
 	}
