@@ -220,7 +220,7 @@ export default class TopBarNav extends React.Component {
 					maxInput,
 					maxRange
 				},
-				() => setTimeout(() => this.scrollView.getNode().scrollTo({ x: this.index * width }), 0)
+				() => setTimeout(() => this.scrollView?.getNode()?.scrollTo({ x: this.index * width }), 0)
 			);
 		}
 	};
