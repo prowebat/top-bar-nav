@@ -120,7 +120,7 @@ export default class TopBarNav extends React.Component {
 						useNativeDriver: true
 					})}>
 					{routeStack.map((route, i) => (
-						<View key={i} style={{ width }}>
+						<View key={i} style={{ width, alignItems: 'stretch' }}>
 							{renderScene(route, i)}
 						</View>
 					))}
